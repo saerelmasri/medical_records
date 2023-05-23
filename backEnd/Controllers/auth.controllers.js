@@ -77,10 +77,6 @@ const login = async(req, res) => {
     }
 }
 
-// const getUserByToken = (req, res) => {
-
-// }
-
 module.exports = {
     register,
     login

@@ -17,6 +17,10 @@ const medicalSchema = mongoose.Schema({
     medications: {
         type: String,
         require: true
+    },
+    time: {
+        type: Date,
+        default: Date.now
     }
 })
 
