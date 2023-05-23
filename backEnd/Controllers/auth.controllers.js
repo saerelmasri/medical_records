@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const User = require('../Models/user.model');
 const jwt = require('jsonwebtoken');
 
@@ -7,7 +8,7 @@ const register = async(req, res) => {
         const checkUser = await User.findOne({email});
 
         if(checkUser){
-            res.status(409).json({
+            return res.status(409).json({
                 status: 409,
                 message: 'User already exist'
             })
@@ -26,7 +27,7 @@ const register = async(req, res) => {
             email: user.email
         }, process.env.JWT_KEY);
 
-        res.status(201).json({
+        return res.status(201).json({
             status: 201,
             message: token
         })
@@ -39,14 +40,48 @@ const register = async(req, res) => {
     }
 }
 
-// const login = (req, res) => {
+const login = async(req, res) => {
+    try{
+        const { email, password } = req.body;
+        const findUser = await User.findOne({email});
 
-// }
+        if(!findUser){
+            return res.status(404).json({
+                status: 404,
+                message: 'Invalid credentials'
+            });
+        }
+
+        const isMatch = await findUser.matchPassword(password)
+        if(!isMatch){
+            return res.status(404).json({
+                status: 404,
+                message: 'Invalid credentials'
+            }); 
+        }
+
+        const token = jwt.sign({
+            id: findUser._id,
+            name: findUser.full_name,
+        }, process.env.JWT_KEY);
+
+        return res.status(201).json({
+            status: 201,
+            message: token
+        })
+    }catch(err){
+        res.status(500).json({
+            status: 500,
+            message: err
+        })
+    }
+}
 
 // const getUserByToken = (req, res) => {
 
 // }
 
 module.exports = {
-    register
+    register,
+    login
 }

@@ -12,6 +12,9 @@ const V1Router = express.Router()
 const authRoute = require('./Routes/auth.route')
 V1Router.use('/auth', authRoute)
 
+const patientRoute = require('./Routes/patient.route')
+V1Router.use('/patient', patientRoute)
+
 app.use('/V1', V1Router)
 
 
