@@ -63,6 +63,8 @@ const login = async(req, res) => {
         const token = jwt.sign({
             id: findUser._id,
             name: findUser.full_name,
+            email: findUser.email,
+            type: findUser.userType
         }, process.env.JWT_KEY);
 
         return res.status(201).json({
