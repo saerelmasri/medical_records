@@ -1,4 +1,3 @@
-const { json } = require('body-parser');
 const User = require('../Models/user.model');
 const jwt = require('jsonwebtoken');
 
@@ -79,7 +78,38 @@ const login = async(req, res) => {
     }
 }
 
+const typeDecode = (req, res) => {
+    try{
+        const token = req.header('Authorization');
+        if(!token){
+            return res.status(401).json({
+                status: 401,
+                message: 'Unauthorized'
+            })
+        }
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        const role = decoded.type;
+        const email = decoded.name;
+
+        return res.status(201).json({
+            status: 201,
+            message: {
+                email: email,
+                role: role
+            }
+        })
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({
+            status: 500,
+            message: 'Error'
+        })
+    }
+}
+
 module.exports = {
     register,
-    login
+    login,
+    typeDecode
 }

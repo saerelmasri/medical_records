@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const router = Router();
-const { addInfo, getPatients, getPatientInfoById, updateRecordsWthPatientRole, updateUserIdWithDoctorRole } = require('../Controllers/patient.controllers');
+const { addInfo, getPatients, getPatientInfoById, updateRecords, deleteRecord, fetchUserById } = require('../Controllers/patient.controllers');
 
 router.post('/addInfo', addInfo);
 router.get('/patients', getPatients);
-router.get('/patientById', getPatientInfoById);
-router.put('/updateRecords', updateRecordsWthPatientRole);
-router.put('/updateRecordsAsDoctor', updateUserIdWithDoctorRole);
+router.post('/fetchUserById', fetchUserById);
+router.post('/patientById', getPatientInfoById);
+router.put('/updateRecords', updateRecords);
+router.delete('/deleteRecord',deleteRecord);
 
 module.exports = router;
