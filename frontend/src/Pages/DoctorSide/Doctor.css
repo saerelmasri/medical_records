@@ -1,0 +1,19 @@
+.canva{
+    background-color: var(--Aqua);
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+.mainContainer{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+.doctorInfo{
+    height: 7%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+}

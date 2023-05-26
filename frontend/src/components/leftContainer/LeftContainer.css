@@ -1,0 +1,40 @@
+.leftContainer{
+    width: 15%;
+    background-color: var(--darkBlue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.actionContainer{
+    height: 15%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-top: 20%;
+}
+.containertTitle{
+    font-size: 35px;
+    color: white;
+    margin-top: 20%;
+}
+.roleDashboard{
+    font-size: 25px;
+    color: white;
+    padding-left: 20%;
+    padding-right: 20%;
+    text-align: center;
+    margin-top: 20%;
+}
+.options{
+    font-size: 22px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+.options:hover{
+    text-decoration: underline;
+}

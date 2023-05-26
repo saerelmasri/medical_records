@@ -1,21 +1,32 @@
 import { useState } from 'react';
 import './LandingStyle.css'
 import Toastify from 'toastify-js';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Landing = () => {
+    const navigate = useNavigate();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
 
-    const data = {
-        "email": email,
-        "password": password
-    }
 
     const handleSubmit = () => {
         if(email === "" || password === ""){
             alertFail('All fields are required')
         }else{
-            console.log(data);
+            axios({
+                method: 'POST',
+                url: `http://localhost:5000/V1/auth/login`,
+                data: {
+                    "email": email,
+                    "password": password
+                },
+            }).then((res) => {
+                localStorage.setItem('token', res.data.message);
+                navigate('/dashboard')
+            }).catch((err) => {
+                alertFail('Something went wrong :(')
+            })
         }
     }
 
@@ -46,9 +57,6 @@ const Landing = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-                    </div>
-                    <div className='actionContent'>
-                        <h3 className='action'>Don't have an account? Register right now</h3>
                     </div>
                     <button className='btn' onClick={handleSubmit}>Login</button>
                 </div>
